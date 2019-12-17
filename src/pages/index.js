@@ -21,6 +21,7 @@ class BlogIndex extends React.Component {
           return (
             <article key={node.fields.slug}>
               <header>
+                <h3>This is just a test</h3>
                 <h3
                   style={{
                     marginBottom: rhythm(1 / 4),
