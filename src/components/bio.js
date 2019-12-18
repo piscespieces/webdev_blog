@@ -11,7 +11,7 @@ import Image from "gatsby-image"
 
 import { rhythm } from "../utils/typography"
 
-const Bio = () => {
+const Bio = (props) => {
   const data = useStaticQuery(graphql`
     query BioQuery {
       avatar: file(absolutePath: { regex: "/james.jpg/" }) {
@@ -21,20 +21,8 @@ const Bio = () => {
           }
         }
       }
-      allAuthorsJson {
-        edges{
-          node{
-            author
-            bio
-            social{
-              twitter
-            }
-          }
-        }
-      }
     }
   `)
-  const { author, social, bio } = data.allAuthorsJson.edges[0].node
   return (
     <div
       style={{
@@ -44,7 +32,7 @@ const Bio = () => {
     >
       <Image
         fixed={data.avatar.childImageSharp.fixed}
-        alt={author}
+        alt={props.author}
         style={{
           marginRight: rhythm(1 / 2),
           marginBottom: 0,
@@ -56,9 +44,9 @@ const Bio = () => {
         }}
       />
       <p>
-        {bio}
+        {props.bio}
         {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
+        <a href={`https://twitter.com/${props.twitter}`}>
           You should follow him on Twitter
         </a>
       </p>

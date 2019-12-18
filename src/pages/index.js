@@ -39,6 +39,7 @@ class BlogIndex extends React.Component {
                   }}
                 />
               </section>
+              <p>{node.frontmatter.author}</p>
             </article>
           )
         })}
@@ -67,6 +68,8 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            author
+            bio
           }
         }
       }
