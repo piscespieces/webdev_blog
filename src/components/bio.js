@@ -21,18 +21,19 @@ const Bio = () => {
           }
         }
       }
-      site {
-        siteMetadata {
-          author
-          social {
-            twitter
+      allAuthorsJson {
+        edges{
+          node{
+            author
+            social{
+              twitter
+            }
           }
         }
       }
     }
   `)
-
-  const { author, social } = data.site.siteMetadata
+  const { author, social } = data.allAuthorsJson.edges[0].node
   return (
     <div
       style={{
