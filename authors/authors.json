@@ -1,8 +1,30 @@
 [
   {
-    "author": "Kyle Mathews",
+    "author": "James Kemp",
+    "bio": "Written by James Kemp who lives and works in Miami Florida building useful things.",
     "social": {
-      "twitter": "kylemathews"
+      "twitter": "jkempdev"
+    }
+  },
+  {
+    "author": "Andres M",
+    "bio": "idk homie",
+    "social": {
+      "twitter": "someguy"
+    }
+  },
+  {
+    "author": "Andres U",
+    "bio": "idk homie",
+    "social": {
+      "twitter": "someguy"
+    }
+  },
+  {
+    "author": "Will",
+    "bio": "idk homie",
+    "social": {
+      "twitter": "someguy"
     }
   }
 ]
