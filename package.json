@@ -22,6 +22,7 @@
     "gatsby-remark-prismjs": "^3.3.27",
     "gatsby-remark-responsive-iframe": "^2.2.30",
     "gatsby-remark-smartypants": "^2.1.19",
+    "gatsby-source-contentful": "^2.1.71",
     "gatsby-source-filesystem": "^2.1.42",
     "gatsby-transformer-json": "^2.2.22",
     "gatsby-transformer-remark": "^2.6.43",
@@ -37,6 +38,7 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
+    "env-cmd": "^10.0.1",
     "prettier": "^1.19.1"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
@@ -51,7 +53,7 @@
   },
   "scripts": {
     "build": "gatsby build",
-    "develop": "GATSBY_GRAPHQL_IDE=playground gatsby develop",
+    "develop": "env-cmd -f .env gatsby develop",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "start": "npm run develop",
     "serve": "gatsby serve",
