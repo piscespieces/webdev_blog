@@ -38,6 +38,9 @@ class BlogIndex extends React.Component {
                 </p>
               </section>
               <p>{node.reference.authorName}</p>
+              <div>
+                <img src={node.image.resize.src}></img>
+              </div>
             </article>
           )
         })}
@@ -78,8 +81,11 @@ export const pageQuery = graphql`
           publishedDate (fromNow:true)
           description
           image {
-            file {
-              url
+            resize (
+              width: 250,
+              height: 250
+            ) {
+              src
             }
           }
         }
