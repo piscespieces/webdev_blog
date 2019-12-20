@@ -32,6 +32,11 @@ class BlogIndex extends React.Component {
                 </h3>
                 <small>{node.publishedDate}</small>
               </header>
+              <section>
+                <p>
+                  {node.description}
+                </p>
+              </section>
               <p>{node.reference.authorName}</p>
             </article>
           )
