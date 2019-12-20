@@ -9,37 +9,30 @@ import { rhythm } from "../utils/typography"
 class BlogIndex extends React.Component {
   render() {
     const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMarkdownRemark.edges
+    const posts = data.allContentfulBlogPost.edges
+    // title={siteTitle}
 
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <Layout location={this.props.location}>
         <SEO title="All posts" />
         <Bio />
         {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
+          const title = node.title
           return (
-            <article key={node.fields.slug}>
+            <article key={node.slug}>
               <header>
                 <h3
                   style={{
                     marginBottom: rhythm(1 / 4),
                   }}
                 >
-                  <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
+                  <Link style={{ boxShadow: `none` }} to={node.slug}>
                     {title}
                   </Link>
                 </h3>
-                <small>{node.frontmatter.date}</small>
+                <small>{node.publishedDate}</small>
               </header>
-              <section>
-                <p
-                  dangerouslySetInnerHTML={{
-                    __html: node.frontmatter.description || node.excerpt,
-                  }}
-                />
-              </section>
-              <p>{node.frontmatter.author}</p>
+              <p>{node.reference.authorName}</p>
             </article>
           )
         })}
@@ -52,27 +45,60 @@ export default BlogIndex
 
 export const pageQuery = graphql`
   query {
-    site {
-      siteMetadata {
-        title
+    allContentfulBlogPost (
+      sort: {
+        fields:publishedDate,
+        order:DESC
       }
-    }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    ) {
       edges {
         node {
-          excerpt
-          fields {
-            slug
+          title
+          reference {
+            authorName
+            authorBio
+            authorImage {
+              file {
+                url
+              }
+            }
           }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
-            author
-            bio
+          slug
+          publishedDate (fromNow:true)
+          image {
+            file {
+              url
+            }
           }
         }
       }
     }
   }
 `
+
+// export const pageQuery = graphql`
+//   query {
+//     site {
+//       siteMetadata {
+//         title
+//       }
+//     }
+//     allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+//       edges {
+//         node {
+//           excerpt
+//           fields {
+//             slug
+//           }
+//           frontmatter {
+//             date(formatString: "MMMM DD, YYYY")
+//             title
+//             description
+//             author
+//             bio
+//           }
+//         }
+//       }
+//     }
+//   }
+// `
