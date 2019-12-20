@@ -5,18 +5,19 @@ import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer'
 
 class BlogPostTemplate extends React.Component {
   render() {
-    const post = this.props.data.markdownRemark
+    const post = this.props.data.contentfulBlogPost
     const siteTitle = this.props.data.site.siteMetadata.title
     const { previous, next } = this.props.pageContext
 
     return (
       <Layout location={this.props.location} title={siteTitle}>
         <SEO
-          title={post.frontmatter.title}
-          description={post.frontmatter.description || post.excerpt}
+          title={post.title}
+          description={post.description}
         />
         <article>
           <header>
@@ -26,7 +27,7 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: 0,
               }}
             >
-              {post.frontmatter.title}
+              {post.title}
             </h1>
             <p
               style={{
@@ -35,10 +36,12 @@ class BlogPostTemplate extends React.Component {
                 marginBottom: rhythm(1),
               }}
             >
-              {post.frontmatter.date}
+              {post.publishedDate}
             </p>
           </header>
-          <section dangerouslySetInnerHTML={{ __html: post.html }} />
+          <div>
+            {documentToReactComponents(post.richText.json)}
+          </div>
           <hr
             style={{
               marginBottom: rhythm(1),
@@ -46,9 +49,9 @@ class BlogPostTemplate extends React.Component {
           />
           <footer>
             <Bio
-              author={post.frontmatter.author}
-              bio={post.frontmatter.bio}
-              twitter={post.frontmatter.twitter}
+              author={post.reference.authorName}
+              bio={post.reference.authorBio}
+            // twitter={post.frontmatter.twitter}
             />
           </footer>
         </article>
@@ -66,14 +69,14 @@ class BlogPostTemplate extends React.Component {
             <li>
               {previous && (
                 <Link to={previous.fields.slug} rel="prev">
-                  ← {previous.frontmatter.title}
+                  ← {previous.title}
                 </Link>
               )}
             </li>
             <li>
               {next && (
                 <Link to={next.fields.slug} rel="next">
-                  {next.frontmatter.title} →
+                  {next.title} →
                 </Link>
               )}
             </li>
@@ -87,23 +90,33 @@ class BlogPostTemplate extends React.Component {
 export default BlogPostTemplate
 
 export const pageQuery = graphql`
-  query BlogPostBySlug($slug: String!) {
+  query ($slug: String) {
     site {
       siteMetadata {
         title
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      excerpt(pruneLength: 160)
-      html
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        description
-        author
-        bio
-        twitter
+
+    contentfulBlogPost (slug: {eq: $slug}) {
+      title
+      description
+      reference {
+        authorName
+        authorBio
+        authorImage {
+          resize {
+            src
+          }
+        }
+      }
+      publishedDate(fromNow:true)
+      image {
+        resize (width: 750, height: 750) {
+          src
+        }
+      }
+      richText {
+        json
       }
     }
   }

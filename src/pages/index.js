@@ -38,9 +38,6 @@ class BlogIndex extends React.Component {
                 </p>
               </section>
               <p>{node.reference.authorName}</p>
-              <div>
-                <img src={node.image.resize.src}></img>
-              </div>
             </article>
           )
         })}

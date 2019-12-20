@@ -8,6 +8,7 @@
     "url": "https://github.com/gatsbyjs/gatsby/issues"
   },
   "dependencies": {
+    "@contentful/rich-text-react-renderer": "^13.4.0",
     "gatsby": "^2.18.13",
     "gatsby-cli": "^2.8.20",
     "gatsby-image": "^2.2.37",
