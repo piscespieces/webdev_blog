@@ -70,6 +70,7 @@ export const pageQuery = graphql`
           }
           slug
           publishedDate (fromNow:true)
+          description
           image {
             file {
               url
