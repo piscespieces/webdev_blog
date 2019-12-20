@@ -55,6 +55,7 @@ export const pageQuery = graphql`
         title
       }
     }
+
     allContentfulBlogPost (
       sort: {
         fields:publishedDate,
